@@ -81,6 +81,37 @@
         </div>
         <!-- end card -->
     </div>
+    <div class="col-xl-6">
+        {{-- success msg --}}
+        @if (session('name_update'))
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            <i class="mdi mdi-check-all me-2"></i>
+            {{ session('name_update') }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        @endif
+        {{-- success msg --}}
+        <div class="card">
+            <div class="card-body">
+                <h5 class="header-title">Image Update</h5>
+                <form action="{{ route('profile.image.update') }}" method="POST" enctype="multipart/form-data">
+                    @csrf
+                    <div class="form-floating mb-3">
+                        <input type="file" class="form-control" id="floatingnameInput" name="image">
+                        <label for="floatingnameInput">Image File</label>
+                        @error('email')
+                            <p class="text-danger">{{ $message }}</p>
+                        @enderror
+                    </div>
+                    <div>
+                        <button type="submit" class="btn btn-primary w-md">Submit</button>
+                    </div>
+                </form>
+            </div>
+            <!-- end card body -->
+        </div>
+        <!-- end card -->
+    </div>
 </div>
 
 

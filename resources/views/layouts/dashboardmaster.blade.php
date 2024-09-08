@@ -21,7 +21,7 @@
     <link href="{{ asset('dashboard') }}/assets/css/style.min.css" rel="stylesheet" type="text/css">
     <link href="{{ asset('dashboard') }}/assets/css/icons.min.css" rel="stylesheet" type="text/css">
     <script src="{{ asset('dashboard') }}/assets/js/config.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
 </head>
 
 <body>
@@ -71,49 +71,19 @@
                     <li class="menu-item">
                         <a href="#menuExpages" data-bs-toggle="collapse" class="menu-link waves-effect waves-light">
                             <span class="menu-icon"><i class="bx bx-file"></i></span>
-                            <span class="menu-text"> Extra Pages </span>
+                            <span class="menu-text"> Category </span>
                             <span class="menu-arrow"></span>
                         </a>
                         <div class="collapse" id="menuExpages">
                             <ul class="sub-menu">
                                 <li class="menu-item">
-                                    <a class='menu-link' href='pages-starter.html'>
-                                        <span class="menu-text">Starter</span>
+                                    <a class='menu-link' href='{{ route('category.index') }}'>
+                                        <span class="menu-text">Show Category</span>
                                     </a>
                                 </li>
                                 <li class="menu-item">
                                     <a class='menu-link' href='pages-invoice.html'>
-                                        <span class="menu-text">Invoice</span>
-                                    </a>
-                                </li>
-                                <li class="menu-item">
-                                    <a class='menu-link' href='pages-login.html'>
-                                        <span class="menu-text">Log In</span>
-                                    </a>
-                                </li>
-                                <li class="menu-item">
-                                    <a class='menu-link' href='pages-register.html'>
-                                        <span class="menu-text">Register</span>
-                                    </a>
-                                </li>
-                                <li class="menu-item">
-                                    <a class='menu-link' href='pages-recoverpw.html'>
-                                        <span class="menu-text">Recover Password</span>
-                                    </a>
-                                </li>
-                                <li class="menu-item">
-                                    <a class='menu-link' href='pages-lock-screen.html'>
-                                        <span class="menu-text">Lock Screen</span>
-                                    </a>
-                                </li>
-                                <li class="menu-item">
-                                    <a class='menu-link' href='pages-404.html'>
-                                        <span class="menu-text">Error 404</span>
-                                    </a>
-                                </li>
-                                <li class="menu-item">
-                                    <a class='menu-link' href='pages-500.html'>
-                                        <span class="menu-text">Error 500</span>
+                                        <span class="menu-text">Create Category</span>
                                     </a>
                                 </li>
                             </ul>
@@ -343,7 +313,12 @@
 
                         <li class="dropdown">
                             <a class="nav-link dropdown-toggle nav-user me-0 waves-effect waves-light" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">
-                                <img src="{{ asset('dashboard') }}/assets/images/users/avatar-4.jpg" alt="user-image" class="rounded-circle">
+                                @if (auth()->user()->image == 'default.jpg')
+
+                                <img src="{{ asset('uploads/default') }}/{{ auth()->user()->image }}" alt="user-image" class="rounded-circle">
+                                @else
+                                <img src="{{ asset('uploads/profile') }}/{{ auth()->user()->image }}" alt="user-image" class="rounded-circle">
+                                @endif
                                 <span class="ms-1 d-none d-md-inline-block">
                                     {{ auth()->user()->name }} <i class="mdi mdi-chevron-down"></i>
                                 </span>
@@ -462,8 +437,9 @@
 
     <!-- Dashboard init-->
     <script src="{{ asset('dashboard') }}/assets/js/pages/dashboard.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
 
-
+    @yield('script')
 </body>
 
 

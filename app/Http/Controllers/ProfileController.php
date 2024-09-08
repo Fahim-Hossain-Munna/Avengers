@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Intervention\Image\ImageManager;
+use Intervention\Image\Drivers\Gd\Driver;
 
 class ProfileController extends Controller
 {
@@ -45,4 +47,28 @@ class ProfileController extends Controller
         }
 
     }
+
+
+    public function image_update(Request $request){
+
+        $manager = new ImageManager(new Driver());
+
+        if($request->hasFile('image')){
+            $newname = auth()->user()->id . '-' . now()->format("M d ,Y") .'-'. rand(0,9999) . '.' . $request->file('image')->getClientOriginalExtension();
+            $image = $manager->read($request->file('image'));
+            $image->toPng()->save(base_path('public/uploads/profile/'.$newname));
+
+            User::find(auth()->user()->id)->update([
+                'image' => $newname,
+                'updated_at' => now(),
+            ]);
+
+            return back()->with('image update','image update successfull');
+        }else{
+            return back()->withErrors(['email' => "Please insert image first"])->withInput();
+        }
+
+    }
+
+
 }
