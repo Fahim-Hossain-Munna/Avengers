@@ -33,7 +33,20 @@
                                     <td>
                                         {{ $category->slug }}
                                     </td>
-                                    <td>@mdo</td>
+                                    <td>
+                                        <div class="d-flex justify-content-around">
+                                            <a href="{{ route('category.edit',$category->id) }}" type="button" class="btn btn-outline-info waves-effect waves-light">
+                                                <i class="fa-solid fa-pen-to-square"></i>
+                                            </a>
+
+                                            <form action="{{ route('category.destroy',$category->id) }}" method="POST">
+                                               @csrf
+                                                <button type="submit" class="btn btn-outline-danger waves-effect waves-light">
+                                                    <i class="fa-solid fa-trash"></i>
+                                                </button>
+                                            </form>
+                                        </div>
+                                    </td>
                                 </tr>
                             @endforeach
                         </tbody>

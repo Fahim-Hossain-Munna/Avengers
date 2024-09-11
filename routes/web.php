@@ -6,7 +6,7 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 
-Auth::routes();
+Auth::routes(['register' => false]);
 
 Route::get('/', function () {
     return view('welcome');
@@ -24,5 +24,8 @@ Route::post('/profile/image/update',[ProfileController::class,'image_update'])->
 // category
 Route::get('/category',[CategoryController::class,'index'])->name('category.index');
 Route::post('/category/store',[CategoryController::class,'store'])->name('category.store');
+Route::get('/category/edit/{id}',[CategoryController::class,'edit'])->name('category.edit');
+Route::post('/category/update/{id}',[CategoryController::class,'update'])->name('category.update');
+Route::post('/category/delete/{id}',[CategoryController::class,'destroy'])->name('category.destroy');
 
 
