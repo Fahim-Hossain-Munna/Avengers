@@ -68,6 +68,31 @@
                         </a>
                     </li>
 
+                    @if (auth()->user()->role == 'admin' || auth()->user()->role == 'manager')
+                    <li class="menu-item">
+                        <a href="#menuauth" data-bs-toggle="collapse" class="menu-link waves-effect waves-light">
+                            <span class="menu-icon"><i class="bx bx-file"></i></span>
+                            <span class="menu-text"> Admin Management </span>
+                            <span class="menu-arrow"></span>
+                        </a>
+                        <div class="collapse" id="menuauth">
+                            <ul class="sub-menu">
+                                <li class="menu-item">
+                                    <a class='menu-link' href='{{ route('management.index') }}'>
+                                        <span class="menu-text">User Authentication</span>
+                                    </a>
+                                </li>
+                                <li class="menu-item">
+                                    <a class='menu-link' href='pages-invoice.html'>
+                                        <span class="menu-text">Role Assign</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+
+                    @endif
+
                     <li class="menu-item">
                         <a href="#menuExpages" data-bs-toggle="collapse" class="menu-link waves-effect waves-light">
                             <span class="menu-icon"><i class="bx bx-file"></i></span>

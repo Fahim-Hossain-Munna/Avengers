@@ -3,7 +3,7 @@
 @section('content')
 
 <div class="row">
-    <div class="col-lg-6">
+    <div class="col-lg-8">
         <div class="card">
             <div class="card-body">
                 <h4 class="header-title">Categories table</h4>
@@ -14,7 +14,7 @@
                                 <th>#</th>
                                 <th>Category Image</th>
                                 <th>Category Title</th>
-                                <th>Category Slug</th>
+                                <th>Category Status</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
@@ -31,7 +31,13 @@
                                         {{ $category->title }}
                                     </td>
                                     <td>
-                                        {{ $category->slug }}
+                                        <form id="avengers{{ $category->id }}" action="{{ route('category.status',$category->id) }}" method="POST">
+                                            @csrf
+                                            <div class="form-check form-switch">
+                                            <input onchange="document.querySelector('#avengers{{ $category->id }}').submit()" class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckChecked" {{ $category->status == 'active' ? 'checked' : '' }}>
+                                            <label class="form-check-label" for="flexSwitchCheckChecked">{{ $category->status }}</label>
+                                        </div>
+                                    </form>
                                     </td>
                                     <td>
                                         <div class="d-flex justify-content-around">
@@ -55,7 +61,7 @@
             </div>
         </div> <!-- end card -->
     </div>
-    <div class="col-lg-6">
+    <div class="col-lg-4">
         <div class="card">
             <div class="card-body">
                 <h4 class="header-title mb-3">Category Insert</h4>

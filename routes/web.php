@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\ManagementController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
@@ -21,11 +22,20 @@ Route::post('/profile/username/update',[ProfileController::class,'name_update'])
 Route::post('/profile/password/update',[ProfileController::class,'password_update'])->name('profile.password.update');
 Route::post('/profile/image/update',[ProfileController::class,'image_update'])->name('profile.image.update');
 
+// management
+Route::get('/user/authenticate',[ManagementController::class,'index'])->name('management.index');
+Route::post('/user/authenticate',[ManagementController::class,'register_user'])->name('management.user.register');
+Route::post('/user/authenticate/role/undo/{id}',[ManagementController::class,'role_undo'])->name('management.user.role.undo');
+
+
+
+
 // category
 Route::get('/category',[CategoryController::class,'index'])->name('category.index');
 Route::post('/category/store',[CategoryController::class,'store'])->name('category.store');
 Route::get('/category/edit/{id}',[CategoryController::class,'edit'])->name('category.edit');
 Route::post('/category/update/{id}',[CategoryController::class,'update'])->name('category.update');
 Route::post('/category/delete/{id}',[CategoryController::class,'destroy'])->name('category.destroy');
+Route::post('/category/status/{id}',[CategoryController::class,'status'])->name('category.status');
 
 

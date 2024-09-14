@@ -134,4 +134,27 @@ public function destroy($id){
 
 }
 
+
+public  function status($id){
+    $category = Category::where('id',$id)->first();
+
+
+    if($category->status == 'active'){
+        Category::find($category->id)->update([
+            'status' => 'deactive',
+            'updated_at' => now(),
+        ]);
+    return back()->with('success_insert','Category Status Successfully Update');
+
+    }else{
+        Category::find($category->id)->update([
+            'status' => 'active',
+            'updated_at' => now(),
+        ]);
+    return back()->with('success_insert','Category Status Successfully Update');
+
+    }
+
+}
+
 }
