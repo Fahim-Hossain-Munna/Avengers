@@ -18,6 +18,7 @@ class DevSeeder extends Seeder
             'name' => "Developer",
             'email' => 'munna@dev.com',
             'password' => Hash::make('12345678'),
+            'role' => 'admin',
         ]);
     }
 }

@@ -83,14 +83,13 @@
                                     </a>
                                 </li>
                                 <li class="menu-item">
-                                    <a class='menu-link' href='pages-invoice.html'>
+                                    <a class='menu-link' href='{{ route('role.assign') }}'>
                                         <span class="menu-text">Role Assign</span>
                                     </a>
                                 </li>
                             </ul>
                         </div>
                     </li>
-
                     @endif
 
                     <li class="menu-item">
@@ -464,6 +463,7 @@
     <script src="{{ asset('dashboard') }}/assets/js/pages/dashboard.js"></script>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
 
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     @yield('script')
 </body>
 

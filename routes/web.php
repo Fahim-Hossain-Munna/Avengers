@@ -22,10 +22,22 @@ Route::post('/profile/username/update',[ProfileController::class,'name_update'])
 Route::post('/profile/password/update',[ProfileController::class,'password_update'])->name('profile.password.update');
 Route::post('/profile/image/update',[ProfileController::class,'image_update'])->name('profile.image.update');
 
-// management
-Route::get('/user/authenticate',[ManagementController::class,'index'])->name('management.index');
-Route::post('/user/authenticate',[ManagementController::class,'register_user'])->name('management.user.register');
-Route::post('/user/authenticate/role/undo/{id}',[ManagementController::class,'role_undo'])->name('management.user.role.undo');
+
+Route::middleware('authRole')->group(function(){
+    // management
+    Route::get('/user/authenticate',[ManagementController::class,'index'])->name('management.index');
+    Route::post('/user/authenticate',[ManagementController::class,'register_user'])->name('management.user.register');
+    Route::post('/user/authenticate/role/undo/{id}',[ManagementController::class,'role_undo'])->name('management.user.role.undo');
+
+
+    Route::get('/user/role/assign',[ManagementController::class,'role_assign'])->name('role.assign');
+    Route::post('/user/role/assign',[ManagementController::class,'role_assign_post'])->name('role.assign');
+    Route::post('/user/authenticate/role/undo/blogger/{id}',[ManagementController::class,'role_undo_blogger'])->name('management.user.role.undo.blogger');
+
+    Route::post('/user/authenticate/role/undo/user/{id}',[ManagementController::class,'role_undo_user_block'])->name('management.user.role.undo.user');
+
+
+});
 
 
 
