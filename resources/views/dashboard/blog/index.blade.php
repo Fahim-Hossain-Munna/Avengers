@@ -12,7 +12,7 @@
         <div class="col-lg-12">
             <div class="card">
                 <div class="card-body">
-                    <h4 class="header-title">Categories table</h4>
+                    <h4 class="header-title">Blog's table</h4>
                     <div class="table-responsive">
                         <table class="table table-dark mb-0">
                             <thead>
@@ -20,6 +20,7 @@
                                     <th>#</th>
                                     <th>Image</th>
                                     <th>Title</th>
+                                    <th>Category Title</th>
                                     <th>Status</th>
                                     <th>Action</th>
                                 </tr>
@@ -28,13 +29,16 @@
                                 @foreach ($blogs as $blog)
                                     <tr>
                                         <th scope="row">
-                                            {{ $loop->index + 1 }}
+                                            {{  $blogs->firstItem() + $loop->index }}
                                         </th>
                                         <td>
                                             <img src="{{ asset('uploads/blog') }}/{{ $blog->thumbnail }}" style="width: 80px; height:80px;">
                                         </td>
                                         <td>
                                             {{ $blog->title }}
+                                        </td>
+                                        <td>
+                                            {{ $blog->onecategory->title }}
                                         </td>
                                         <td>
                                             <form id="avengers{{ $blog->id }}" action="{{ route('category.status',$blog->id) }}" method="POST">
@@ -47,12 +51,13 @@
                                         </td>
                                         <td>
                                             <div class="d-flex justify-content-around">
-                                                <a href="{{ route('category.edit',$blog->id) }}" type="button" class="btn btn-outline-info waves-effect waves-light">
+                                                <a href="{{ route('blog.edit',$blog->id) }}" type="button" class="btn btn-outline-info waves-effect waves-light">
                                                     <i class="fa-solid fa-pen-to-square"></i>
                                                 </a>
 
-                                                <form action="{{ route('category.destroy',$blog->id) }}" method="POST">
+                                                <form action="{{ route('blog.destroy',$blog->id) }}" method="POST">
                                                    @csrf
+                                                   @method('DELETE')
                                                     <button type="submit" class="btn btn-outline-danger waves-effect waves-light">
                                                         <i class="fa-solid fa-trash"></i>
                                                     </button>
@@ -62,6 +67,8 @@
                                     </tr>
                                 @endforeach
                             </tbody>
+
+                            {{ $blogs->links() }}
                         </table>
                     </div>
                 </div>
