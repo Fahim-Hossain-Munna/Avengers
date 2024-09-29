@@ -4,6 +4,7 @@ use App\Http\Controllers\BlogController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\Frontend\BlogController as FrontendBlogController;
 use App\Http\Controllers\Frontend\CatBlogController;
+use App\Http\Controllers\Frontend\GuestAuthentication;
 use App\Http\Controllers\Frontend\HomeController as FrontendHomeController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ManagementController;
@@ -21,6 +22,11 @@ Route::get('/category/{slug}',[CatBlogController::class,'show'])->name('frontend
 Route::get('/blogs',[FrontendBlogController::class,'index'])->name('frontend.blogs');
 Route::get('/blog/single/{slug}',[FrontendBlogController::class,'single'])->name('frontend.blog.single');
 Route::post('/blog/comment/{id}',[FrontendBlogController::class,'comment'])->name('frontend.blog.comment');
+
+Route::get('guest/login',[GuestAuthentication::class,'login'])->name('guest.login');
+Route::post('guest/login',[GuestAuthentication::class,'login_post'])->name('guest.login');
+Route::get('guest/register',[GuestAuthentication::class,'register'])->name('guest.register');
+Route::post('guest/register',[GuestAuthentication::class,'register_post'])->name('guest.register');
 
 
 // dashboard home
@@ -51,7 +57,7 @@ Route::middleware('authRole')->group(function(){
 
 
 
-
+Route::middleware('excess')->group(function(){
 // category
 Route::get('/category',[CategoryController::class,'index'])->name('category.index');
 Route::post('/category/store',[CategoryController::class,'store'])->name('category.store');
@@ -64,6 +70,8 @@ Route::post('/category/status/{id}',[CategoryController::class,'status'])->name(
 // blog
 
 Route::resource('/blog',BlogController::class);
+Route::post('/blog/feature/{id}',[BlogController::class,'feature'])->name('blog.feature');
 
 
+});
 

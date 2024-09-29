@@ -174,4 +174,23 @@ class BlogController extends Controller
         Blog::find($blog->id)->delete();
         return redirect()->route('blog.index')->with('success','Blog Updated Successfull');
     }
+
+    public function feature($id)
+    {
+        $blog = Blog::where('id',$id)->first();
+
+        if($blog->feature == false){
+            Blog::find($blog->id)->update([
+                'feature' => true,
+                'updated_at' => now(),
+            ]);
+            return redirect()->route('blog.index')->with('success','This Blog is Feature Now');
+        }else{
+            Blog::find($blog->id)->update([
+                'feature' => false,
+                'updated_at' => now(),
+            ]);
+            return redirect()->route('blog.index')->with('success','This Blog is Not Feature Now');
+        }
+    }
 }

@@ -22,6 +22,9 @@
                                     <th>Title</th>
                                     <th>Category Title</th>
                                     <th>Status</th>
+                                    @if (Auth::user()->role == 'admin' || Auth::user()->role == 'manager')
+                                    <th>Feature</th>
+                                    @endif
                                     <th>Action</th>
                                 </tr>
                             </thead>
@@ -49,6 +52,16 @@
                                             </div>
                                         </form>
                                         </td>
+                                        @if (Auth::user()->role == 'admin' || Auth::user()->role == 'manager')
+                                        <td>
+                                            <form id="avenger{{ $blog->id }}" action="{{ route('blog.feature',$blog->id) }}" method="POST">
+                                                @csrf
+                                                <div class="form-check form-switch">
+                                                <input onchange="document.querySelector('#avenger{{ $blog->id }}').submit()" class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckChecked" {{ $blog->feature == true ? 'checked' : '' }}>
+                                            </div>
+                                        </form>
+                                        </td>
+                                        @endif
                                         <td>
                                             <div class="d-flex justify-content-around">
                                                 <a href="{{ route('blog.edit',$blog->id) }}" type="button" class="btn btn-outline-info waves-effect waves-light">

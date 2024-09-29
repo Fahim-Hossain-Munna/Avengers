@@ -23,6 +23,7 @@
     <!-- main style -->
     <link rel="stylesheet" href="{{ asset('frontend') }}/assets/css/style.css">
     <link rel="stylesheet" href="{{ asset('frontend') }}/assets/css/custom.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 
 <body>
@@ -87,7 +88,7 @@
                     </div>
                     <!--button-subscribe-->
                     <div class="botton-sub">
-                        <a href="signup.html" class="btn-subscribe">Sign Up</a>
+                        <a href="{{ route('guest.register') }}" class="btn-subscribe">Sign Up</a>
                     </div>
                     <!--navbar-toggler-->
                     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#main_nav"
