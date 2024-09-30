@@ -9,8 +9,11 @@ use App\Http\Controllers\Frontend\HomeController as FrontendHomeController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ManagementController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\RequestController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Foundation\Auth\EmailVerificationRequest;
+use Illuminate\Http\Request;
 
 Auth::routes(['register' => false]);
 
@@ -28,6 +31,12 @@ Route::post('guest/login',[GuestAuthentication::class,'login_post'])->name('gues
 Route::get('guest/register',[GuestAuthentication::class,'register'])->name('guest.register');
 Route::post('guest/register',[GuestAuthentication::class,'register_post'])->name('guest.register');
 
+Route::get('/role/request',[RequestController::class,'index'])->name('request.show');
+Route::get('/role/request/accept/{id}',[RequestController::class,'accept'])->name('request.accept');
+Route::get('/role/request/cancel/{id}',[RequestController::class,'cancel'])->name('request.cancel');
+Route::post('/role/request/{id}',[RequestController::class,'request_sent'])->name('request.send');
+
+Route::middleware(['auth','verified'])->group(function(){
 
 // dashboard home
 Route::get('/home',[HomeController::class,'index'])->name('dashboard');
@@ -72,6 +81,24 @@ Route::post('/category/status/{id}',[CategoryController::class,'status'])->name(
 Route::resource('/blog',BlogController::class);
 Route::post('/blog/feature/{id}',[BlogController::class,'feature'])->name('blog.feature');
 
+});
 
 });
 
+// email varifiaction routes
+
+// Route::get('/email/verify', function () {
+//     return view('auth.verify');
+// })->middleware('auth')->name('verification.notice');
+
+Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $request) {
+    $request->fulfill();
+
+    return redirect('/home');
+})->middleware(['auth', 'signed'])->name('verification.verify');
+
+Route::post('/email/verification-notification', function (Request $request) {
+    $request->user()->sendEmailVerificationNotification();
+
+    return back()->with('message', 'Verification link sent!');
+})->middleware(['auth', 'throttle:6,1'])->name('verification.send');

@@ -92,6 +92,22 @@
                             </ul>
                         </div>
                     </li>
+                    <li class="menu-item">
+                        <a href="#menuBlog" data-bs-toggle="collapse" class="menu-link waves-effect waves-light">
+                            <span class="menu-icon"><i class="bx bx-file"></i></span>
+                            <span class="menu-text"> Blogger Request's </span>
+                            <span class="menu-arrow"></span>
+                        </a>
+                        <div class="collapse" id="menuBlog">
+                            <ul class="sub-menu">
+                                <li class="menu-item">
+                                    <a class='menu-link' href='{{ route('request.show') }}'>
+                                        <span class="menu-text">Show Request's</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
                     @endif
 
                     @if (auth()->user()->role == 'admin' || auth()->user()->role == 'manager' || auth()->user()->role == 'blogger' )

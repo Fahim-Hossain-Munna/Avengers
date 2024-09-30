@@ -29,7 +29,7 @@
                                 <input type="checkbox" class="custom-control-input" id="rememberMe">
                                     <label class="custom-control-label" for="rememberMe">Remember Me</label>
                                 </div>
-                                <a href="#" class="btn-link ">Forgot Password?</a>
+                                <a href="{{ route('password.request') }}" class="btn-link ">Forgot Password?</a>
                             </div>
                             <div class="form-group">
                                 <button type="submit" class="btn-custom">Login in</button>
